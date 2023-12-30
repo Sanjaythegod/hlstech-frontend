@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Alert, Collapse, IconButton } from "@mui/material"
 import CloseIcon from '@mui/icons-material/Close';
-
+import api from '../axios'
 
 const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [open, setopen] = useState(false);
+    const [err, setErr] = useState(false);
+    const [message, setMessage] = useState('');
 
     const containerStyle = {
         maxWidth: '300px',
@@ -52,9 +54,19 @@ const LoginForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        api.post('login',{
+            email: email,
+            pass_hash: password
+        }).then(res => {
+            console.log(res.data)
+            localStorage.setItem('token',res.data.accessToken)
+            setopen(true)
+        }).catch(err => {
+            console.log(err.data)
+            setErr(true)
+            setMessage(err.response.data.error)
+        })
         
-        console.log('Email:', email);
-        console.log('Password:', password);
     };
 
     return (
@@ -82,6 +94,7 @@ const LoginForm = () => {
                 </button>
                 <Collapse in={open} style={{marginTop: '10px'}}>
                     <Alert
+                        severity='success'
                         action={
                             <IconButton
                                 aria-label="close"
@@ -97,6 +110,26 @@ const LoginForm = () => {
                         sx={{ mb: 2 }}
                     >
                         Login success
+                    </Alert>
+                </Collapse>
+                <Collapse in={err} style={{marginTop: '10px'}}>
+                    <Alert
+                        severity='error'
+                        action={
+                            <IconButton
+                                aria-label="close"
+                                color="inherit"
+                                size="small"
+                                onClick={() => {
+                                    setErr(false);
+                                }}
+                            >
+                                <CloseIcon fontSize="inherit" />
+                            </IconButton>
+                        }
+                        sx={{ mb: 2 }}
+                    >
+                        {message}
                     </Alert>
                 </Collapse>
 

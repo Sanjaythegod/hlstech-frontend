@@ -1,7 +1,8 @@
-import React from "react";
-import { Typography } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { Typography,LinearProgress } from "@mui/material";
 import Product from "../Components/Product";
-import productData from '../data/productdata.json';
+import api from '../axios'
+// import productData from '../data/productdata.json';
 
 const styles = {
     featuredContainer: {
@@ -20,17 +21,26 @@ const styles = {
     },
 };
 
+
+
 export default function Featured() {
+    const [data, setData] = useState(null)
+
+    useEffect(() => {
+        api.get('getAllProducts').then(res => {
+            setData(res.data)
+        })
+    }, [])
     return (
         <div style={styles.featuredContainer}>
             <Typography variant="h4" style={{ color: 'white', marginBottom: '30px' }}>
                 Featured Products:
             </Typography>
             <div style={styles.productList}>
-                {productData.length > 0 && productData ?
-                    productData.map(data => (
-                        <div key={data.id} style={styles.productItem}>
-                            <Product dark={true} data={data} />
+                {data ?
+                    data.map(pdata => (
+                        <div key={pdata.id} style={styles.productItem}>
+                            <Product dark={true} data={pdata} />
                         </div>
                     )) : <p>Loading...</p>
                 }

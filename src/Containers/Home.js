@@ -1,9 +1,8 @@
 import React from "react";
 import NavBar from "../Components/Navbar";
-import { Button, Divider, Typography, Grid } from "@mui/material";
+import { Button, Typography, Grid } from "@mui/material";
 import gameImage from "../imgs/placeholde.avif";
 import { useNavigate } from "react-router-dom";
-import Product from "../Components/Product";
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import YouTubeIcon from '@mui/icons-material/YouTube';
@@ -29,12 +28,14 @@ export default function Home() {
         textAlign: "center",
         zIndex: 1,
     };
+    const token = localStorage.getItem('token')
+
     return (
         <div style={{
             height: '100%',
             backgroundColor: 'rgb(18,18,18)'
         }}>
-            <NavBar />
+            <NavBar auth={token}/>
             <div style={containerStyle}>
                 <div style={textStyle}>
                     <Typography variant="h4" style={{
@@ -44,7 +45,6 @@ export default function Home() {
                 </div>
             </div>
             <Featured />
-            <Divider style={{backgroundColor: 'white', height: '0.5px'}}/>
             <Grid container style={{
                 margin: '10px'
             }}>

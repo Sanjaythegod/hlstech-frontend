@@ -1,18 +1,19 @@
+import { Alert, Collapse, IconButton } from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
 import React, { useState } from 'react';
+import api from '../axios'
 
 const SignupForm = () => {
     const [formData, setFormData] = useState({
         first_name: '',
         last_name: '',
         email: '',
-        password: '',
-        line_1: '',
-        line_2: '',
-        city: '',
-        state: '',
-        country: '',
-        zipcode: '',
+        pass_hash: '',
     });
+    const [open, setOpen] = React.useState(false);
+    const [erropen, setErrOpen] = React.useState(false);
+    const [errmessage, setErrMessage] = React.useState('');
+
 
     const containerStyle = {
         maxWidth: '300px',
@@ -26,7 +27,6 @@ const SignupForm = () => {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        height: '100vh',
         marginTop: '50px',
     };
 
@@ -64,6 +64,14 @@ const SignupForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log('Form Data:', formData);
+        api.post('createUser', formData).then(res => {
+            console.log(res.data)
+            setOpen(true)
+        }).catch(err => {
+            console.log(err)
+            setErrOpen(true)
+            setErrMessage(err.response.data.error)
+        })
     };
 
     return (
@@ -109,73 +117,8 @@ const SignupForm = () => {
                     Password:
                     <input
                         type="password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleInputChange}
-                        required
-                        style={inputStyle}
-                    />
-                </label>
-                <label style={labelStyle}>
-                    Address Line 1:
-                    <input
-                        type="text"
-                        name="line_1"
-                        value={formData.line_1}
-                        onChange={handleInputChange}
-                        required
-                        style={inputStyle}
-                    />
-                </label>
-                <label style={labelStyle}>
-                    Address Line 2:
-                    <input
-                        type="text"
-                        name="line_2"
-                        value={formData.line_2}
-                        onChange={handleInputChange}
-                        style={inputStyle}
-                    />
-                </label>
-                <label style={labelStyle}>
-                    City:
-                    <input
-                        type="text"
-                        name="city"
-                        value={formData.city}
-                        onChange={handleInputChange}
-                        required
-                        style={inputStyle}
-                    />
-                </label>
-                <label style={labelStyle}>
-                    State:
-                    <input
-                        type="text"
-                        name="state"
-                        value={formData.state}
-                        onChange={handleInputChange}
-                        required
-                        style={inputStyle}
-                    />
-                </label>
-                <label style={labelStyle}>
-                    Country:
-                    <input
-                        type="text"
-                        name="country"
-                        value={formData.country}
-                        onChange={handleInputChange}
-                        required
-                        style={inputStyle}
-                    />
-                </label>
-                <label style={labelStyle}>
-                    Zipcode:
-                    <input
-                        type="text"
-                        name="zipcode"
-                        value={formData.zipcode}
+                        name="pass_hash"
+                        value={formData.pass_hash}
                         onChange={handleInputChange}
                         required
                         style={inputStyle}
@@ -185,6 +128,45 @@ const SignupForm = () => {
                     Signup
                 </button>
             </form>
+            <Collapse in={open} style={{ marginTop: '10px' }}>
+                <Alert
+                severity="success"
+                    action={
+                        <IconButton
+                            aria-label="close"
+                            color="inherit"
+                            size="small"
+                            onClick={() => {
+                                setOpen(false);
+                            }}
+                        >
+                            <CloseIcon fontSize="inherit" />
+                        </IconButton>
+                    }
+                    sx={{ mb: 2 }}
+                >
+                    Account Created!
+                </Alert>
+            </Collapse>
+            <Collapse in={erropen} style={{ marginTop: '10px' }}>
+                <Alert
+                    severity="error"
+                    action={
+                        <IconButton
+                            aria-label="close"
+                            size="small"
+                            onClick={() => {
+                                setErrOpen(false);
+                            }}
+                        >
+                            <CloseIcon fontSize="inherit" />
+                        </IconButton>
+                    }
+                    sx={{ mb: 2 }}
+                >
+                    {errmessage}
+                </Alert>
+            </Collapse>
         </div>
     );
 };

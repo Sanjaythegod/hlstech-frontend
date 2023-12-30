@@ -5,6 +5,8 @@ import Products from "./Containers/Products";
 import Contact from "./Containers/Contact";
 import Login from "./Containers/Login";
 import Signup from "./Containers/Signup";
+import ProductDetails from "./Containers/ProductDetails";
+import SuccessPage from "./Containers/Success";
 
 
 function App() {
@@ -16,6 +18,8 @@ function App() {
         <Route path='/contact' element={<Contact />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
+        <Route path='/productdetails/:productId' element={<ProductDetails />} />
+        <Route path='/success' element={<SuccessPage />} />
 
       </Routes>
     </BrowserRouter>

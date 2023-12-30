@@ -7,9 +7,11 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
+import { Rating } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import gameProduct from "../imgs/product_image.webp"
+import { useNavigate } from 'react-router-dom';
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -22,20 +24,28 @@ const ExpandMore = styled((props) => {
     }),
 }));
 
-export default function Product({data,dark}) {
+export default function Product({ data, dark }) {
     const [expanded, setExpanded] = React.useState(false);
+
+    const nav = useNavigate();
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
-    const textStyles={
+    const textStyles = {
         color: dark ? 'white' : 'black',
     }
 
     return (
-        <Card sx={{ maxWidth: 345,backgroundColor: dark ? 'rgb(34 34 34)': 'white' }}>
+        <Card sx={{ width: 345, backgroundColor: dark ? 'rgb(34 34 34)' : 'white', cursor: 'pointer' }} >
             <CardHeader
-                style={textStyles}
+                style={{
+                    color: dark ? 'white' : 'black',
+                    textDecoration: 'underline'
+                }}
+                onClick={() => {
+                    nav(`/productDetails/${data.id}`)
+                }}
                 title={data.name}
             />
             <CardMedia
@@ -48,10 +58,11 @@ export default function Product({data,dark}) {
                 <Typography variant="body2" color="text.secondary" style={textStyles}>
                     ${data.price} USD
                 </Typography>
+                <Rating defaultValue={data.rating} precision={1.0} style={{ color: dark ? 'white' : 'black' }} readOnly />
             </CardContent>
 
             <CardActions disableSpacing>
-            <Typography style={textStyles}>See More Info:</Typography>
+                <Typography style={textStyles}>See More Info:</Typography>
 
                 <ExpandMore
                     expand={expanded}

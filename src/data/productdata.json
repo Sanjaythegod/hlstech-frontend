@@ -1,61 +1,61 @@
 [
     {
-        "name": "Product 1",
-        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        "name": "Comfort Bliss Pillow",
+        "description": "Experience the ultimate in comfort with our Comfort Bliss Pillow. Crafted with care to provide the perfect balance of support and softness, it's the key to a good night's sleep.",
         "price": 19.99,
         "stock_quantity": 100
     },
     {
-        "name": "Product 2",
-        "description": "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "name": "Elegance Desk Organizer",
+        "description": "Keep your workspace tidy and stylish with our Elegance Desk Organizer. Designed for both functionality and aesthetics, it's the perfect addition to any office or home office setup.",
         "price": 29.99,
         "stock_quantity": 75
     },
     {
-        "name": "Product 3",
-        "description": "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "name": "Zen Relaxation Kit",
+        "description": "Find your inner peace with our Zen Relaxation Kit. Curated to promote relaxation and mindfulness, this kit includes everything you need to create a serene and calming atmosphere.",
         "price": 39.99,
         "stock_quantity": 50
     },
     {
-        "name": "Product 4",
-        "description": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+        "name": "Adventure Seeker Backpack",
+        "description": "Embark on your next adventure with confidence using our Adventure Seeker Backpack. Durable, spacious, and designed for comfort, it's the ideal companion for explorers and travelers.",
         "price": 49.99,
         "stock_quantity": 25
     },
     {
-        "name": "Product 5",
-        "description": "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "name": "Timeless Classic Watch",
+        "description": "Elevate your style with our Timeless Classic Watch. Meticulously crafted with precision, this watch seamlessly combines classic design with modern functionality for a timeless accessory.",
         "price": 59.99,
         "stock_quantity": 10
     },
     {
-        "name": "Product 6",
-        "description": "Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.",
+        "name": "Serenity Aromatherapy Set",
+        "description": "Indulge your senses with our Serenity Aromatherapy Set. Immerse yourself in the soothing scents of essential oils, creating a tranquil environment for relaxation and stress relief.",
         "price": 69.99,
         "stock_quantity": 50
     },
     {
-        "name": "Product 7",
-        "description": "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores.",
+        "name": "Harmony Wall Art Collection",
+        "description": "Transform your living space with our Harmony Wall Art Collection. Each piece is a masterpiece, designed to bring beauty and harmony to your home, making a statement that reflects your style.",
         "price": 79.99,
         "stock_quantity": 30
     },
     {
-        "name": "Product 8",
-        "description": "Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus.",
+        "name": "Infinity Desk Lamp",
+        "description": "Illuminate your workspace with the Infinity Desk Lamp. Sleek and modern, this lamp not only provides ample lighting but also adds a touch of sophistication to your desk or table.",
         "price": 89.99,
         "stock_quantity": 20
     },
     {
-        "name": "Product 9",
-        "description": "Omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates.",
+        "name": "Nature's Bounty Wellness Bundle",
+        "description": "Prioritize your well-being with Nature's Bounty Wellness Bundle. Packed with essentials to support a healthy lifestyle, it's the perfect choice for those committed to overall wellness.",
         "price": 99.99,
         "stock_quantity": 15
     },
     {
-        "name": "Product 10",
-        "description": "Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.",
+        "name": "Mystique Adventure Journal",
+        "description": "Capture your adventures and thoughts with the Mystique Adventure Journal. Its exquisite design and quality make it the perfect companion for jotting down your most cherished memories.",
         "price": 109.99,
         "stock_quantity": 5
     }
