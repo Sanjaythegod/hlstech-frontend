@@ -12,9 +12,14 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import { Badge } from '@mui/material';
+import { Badge, useMediaQuery } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { useShoppingCart } from '../shoppingCartContext';
+import { useTheme } from "@mui/material/styles";
+
+
+
 
 const pages = ['Products', 'Contact'];
 const settings = ['Profile', 'Orders', 'Logout'];
@@ -22,9 +27,10 @@ const settings = ['Profile', 'Orders', 'Logout'];
 function NavBar(props) {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+    const { cartQuantity } = useShoppingCart();
     const navigate = useNavigate()
-
+    const theme = useTheme();
+    const desktop = useMediaQuery(theme.breakpoints.up("md"))
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
     };
@@ -41,6 +47,7 @@ function NavBar(props) {
         setAnchorElUser(null);
     };
 
+
     return (
         <AppBar position="static" style={{
             backgroundColor: 'rgb(18 18 18)'
@@ -49,7 +56,7 @@ function NavBar(props) {
                 <Toolbar disableGutters>
                     <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
                     <Typography
-                        variant="h6"
+                        variant='h6'
                         noWrap
                         component="a"
                         sx={{
@@ -65,7 +72,7 @@ function NavBar(props) {
                             navigate('/')
                         }}
                     >
-                        HLS Products
+                        LUSH Accessories
                     </Typography>
 
                     {/*Moblile View */}
@@ -126,7 +133,7 @@ function NavBar(props) {
                             textDecoration: 'none',
                         }}
                     >
-                        HLS Products
+                        LUSH
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }} >
                         {pages.map((page) => (
@@ -150,9 +157,11 @@ function NavBar(props) {
                         <div>
 
                             <Box sx={{ flexGrow: 0 }}>
-                                <Badge badgeContent={props.badgeContent} style={{ marginRight: '20px' }}>
-                                    <IconButton>
-                                        <ShoppingCartIcon style={{color: 'white'}}/>
+                                <Badge badgeContent={cartQuantity} style={{ marginRight: '20px' }} color='warning'>
+                                    <IconButton onClick={() => {
+                                        navigate('/cart')
+                                    }}>
+                                        <ShoppingCartIcon style={{ color: 'white' }} />
                                     </IconButton>
                                 </Badge>
                                 <Tooltip title="Open settings">

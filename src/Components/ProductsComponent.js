@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Typography, Grid, Select, MenuItem, FormControl, TextField, InputLabel,LinearProgress } from "@mui/material";
+import { Typography, Grid, Select, MenuItem, FormControl, TextField, InputLabel,LinearProgress, useMediaQuery } from "@mui/material";
 import Product from "./Product";
 import api from '../axios'
+import { useTheme } from "@mui/material/styles";
 
 export default function ProductsComponents() {
     const [product, setProduct] = useState(null)
+    const theme = useTheme();
+    const desktop = useMediaQuery(theme.breakpoints.up("md"))
     const styles = {
         featuredContainer: {
-            marginLeft: '200px',
-            marginRight: '200px',
+            marginLeft: desktop ? '200px' : '0',
+            marginRight: desktop ? '200px' : '0',
             marginTop: '50px',
         },
         productList: {
@@ -53,12 +56,12 @@ export default function ProductsComponents() {
     return (
         <div style={styles.featuredContainer}>
             <Grid container>
-                <Grid item xs={3}>
-                    <Typography variant="h4" style={{ color: 'black', marginBottom: '30px' }}>
+                <Grid item xs={desktop ? 3: 12}>
+                    <Typography variant="h4" style={{ color: 'black', marginBottom: '30px', textAlign: desktop ? "left" : 'center' }}>
                         All Products:
                     </Typography>
                 </Grid>
-                <Grid item xs={6} style={{textAlign: 'center'}}>
+                <Grid item xs={desktop ? 6: 12} style={{textAlign: 'center'}}>
                     <TextField
                         variant="standard"
                         placeholder="Search"
@@ -66,7 +69,7 @@ export default function ProductsComponents() {
                         onChange={(e) => setFilterValue(e.target.value)}
                     />
                 </Grid>
-                <Grid item xs={3} style={{ textAlign: 'right'}}>
+                <Grid item xs={desktop ? 3: 12} style={{ textAlign: desktop ? 'right': 'center'}}>
                     <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
                         <InputLabel>Sort By</InputLabel>
                         <Select value={sortOption} onChange={handleSortChange}>
@@ -87,7 +90,9 @@ export default function ProductsComponents() {
                         </div>
                     ))
                 ) : (
-                    <p>Loading...</p>
+                    <p style={{
+                        color: 'black'
+                    }}>Loading...</p>
                 )}
             </div>
         </div>

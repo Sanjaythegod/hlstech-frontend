@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Typography, Button, Container } from '@mui/material';
+import Footer from "../Components/Footer";
 
 const SuccessPage = () => {
     const nav = useNavigate();
@@ -22,6 +23,8 @@ const SuccessPage = () => {
             >
                 Continue Shopping
             </Button>
+            <Footer dark={true} />
+
         </Container>
     );
 };

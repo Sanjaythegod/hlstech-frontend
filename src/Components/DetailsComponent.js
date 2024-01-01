@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Rating, TextField, Typography, Button } from "@mui/material";
+import { Grid, Rating, TextField, Typography, Button, useMediaQuery} from "@mui/material";
 import api from '../axios'
 import Product from "../Components/Product";
 import { useNavigate } from "react-router-dom";
+import { useShoppingCart } from "../shoppingCartContext";
+import { useTheme } from "@mui/material/styles";
+import productReviews from "../data/reviews.json"
+import Review from "./Review";
 
 export default function DetailsComponent({ id }) {
+    const { getItemQuantity, increaseCartQuantity, decreaseCartQuantity, removeFromCart, cartQuantity, cartState} = useShoppingCart()
     const [productData, setProductData] = useState(null)
     const [allproducts, setAllProducts] = useState(null)
-    const [quantity, setQuantity] = useState(1)
+    const [quantity, setQuantity] = useState(getItemQuantity(id))
+    const [loading, setLoading] = useState(false)
+    const theme = useTheme();
+    const desktop = useMediaQuery(theme.breakpoints.up("md"))
     const nav = useNavigate();
     const authToken = localStorage.getItem('token')
 
@@ -25,6 +33,7 @@ export default function DetailsComponent({ id }) {
     }, [])
 
     const handleBuyNow = () => {
+        setLoading(true)
         api.post('checkout', {
             items: [
                 { id: id, "quantity": quantity },
@@ -34,12 +43,14 @@ export default function DetailsComponent({ id }) {
                 'authorization': `${authToken}`
             }
         }).then(res => {
+            setLoading(false)
             console.log(res.data)
             window.location = res.data.url
         }).catch(e => {
             nav('/login')
         })
     }
+
 
     const handleQuantityChange = (event) => {
         const newQuantity = parseInt(event.target.value, 10) || 0; // Parse value to integer or set to 0 if not a valid number
@@ -66,14 +77,14 @@ export default function DetailsComponent({ id }) {
     return (
         <div>
             <Grid container style={{
-                paddingLeft: '20vw',
+                paddingLeft: desktop ? '20vw': '0vw',
                 paddingTop: '20px', // Adjusted padding for spacing
             }}>
-                <Grid item xs={7}>
+                <Grid item xs={desktop ? 7: 12}>
                     {/* Content for the left side (you can add content here) */}
                     insert image here
                 </Grid>
-                <Grid item xs={5} style={{ padding: '16px' }}>
+                <Grid item xs={desktop? 5: 12} style={{ padding: '16px' }}>
                     {productData ? (
                         <div>
                             <Typography variant="h4" style={{ marginBottom: '16px' }}>{productData.name}</Typography>
@@ -82,7 +93,7 @@ export default function DetailsComponent({ id }) {
                             <Grid container alignItems="center" marginBottom="16px">
                                 Quantity:
                                 <TextField
-                                    style={{ marginLeft: '8px' }}
+                                    style={{ marginLeft: desktop ? '8px':'5px' }}
                                     defaultValue={quantity.toString()} // Display the current quantity from the state
                                     onChange={handleQuantityChange} // Call the function when the value changes
                                 />
@@ -94,6 +105,11 @@ export default function DetailsComponent({ id }) {
                                     width: '100%',
                                     backgroundColor: 'black',
                                     color: 'white', // Adjusted text color for better contrast
+                                }}
+                                onClick={() => { 
+                                    increaseCartQuantity(id, quantity) 
+                                    console.log(cartQuantity)
+                                    console.log(cartState)
                                 }}
                             >
                                 Add to Cart
@@ -109,7 +125,7 @@ export default function DetailsComponent({ id }) {
                                 }}
                                 onClick={handleBuyNow}
                             >
-                                Buy now
+                                {loading ? "Redirecting..." : "Buy Now"}
                             </Button>
 
                         </div>
@@ -118,7 +134,8 @@ export default function DetailsComponent({ id }) {
                     )}
                 </Grid>
             </Grid>
-            <div style={{ paddingLeft: '10%' }}>
+            
+            <div style={{ paddingLeft: desktop ? '10%': '0%' }}>
                 <Typography variant="h5" style={{ marginTop: '50px' }}>You may also like...</Typography>
                 <div style={styles.productList}>
                     {allproducts ?
@@ -126,10 +143,21 @@ export default function DetailsComponent({ id }) {
                             <div key={pdata.id} style={styles.productItem}>
                                 <Product dark={false} data={pdata} />
                             </div>
-                        )) : <p>Loading...</p>
+                        )) : <p style={{
+                            color: 'white'
+                        }}>Loading...</p>
                     }
                 </div>
 
+            </div>
+            <div style={{
+                marginLeft: '10vw',
+                marginRight: '10vw',
+                
+            }}>
+                {productReviews.reviews.map(review => {
+                    return <Review review={review} />
+                })}
             </div>
         </div>
     )

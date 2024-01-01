@@ -12,6 +12,9 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import gameProduct from "../imgs/product_image.webp"
 import { useNavigate } from 'react-router-dom';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+import { useShoppingCart } from "../shoppingCartContext";
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -24,7 +27,7 @@ const ExpandMore = styled((props) => {
     }),
 }));
 
-export default function Product({ data, dark }) {
+export default function Product({ data, dark, cart, quantity }) {
     const [expanded, setExpanded] = React.useState(false);
 
     const nav = useNavigate();
@@ -34,6 +37,24 @@ export default function Product({ data, dark }) {
     };
     const textStyles = {
         color: dark ? 'white' : 'black',
+    }
+    const styles = {
+        root: {
+            display: 'flex',
+            alignItems: 'center',
+        },
+        quantityText: {
+            margin: '0 10px',
+        },
+    };
+    const { increaseCartQuantity, decreaseCartQuantity } = useShoppingCart();
+    
+    const onDecrease =() => {
+        decreaseCartQuantity(data.id,1)
+
+    }
+    const onIncrease =() => {
+        increaseCartQuantity(data.id,1)
     }
 
     return (
@@ -59,6 +80,20 @@ export default function Product({ data, dark }) {
                     ${data.price} USD
                 </Typography>
                 <Rating defaultValue={data.rating} precision={1.0} style={{ color: dark ? 'white' : 'black' }} readOnly />
+                {cart ?
+                    <div style={styles.root}>
+                        <Typography variant='h7'>Quantity:</Typography>
+                        <IconButton color="primary" onClick={onDecrease}>
+                            <RemoveIcon />
+                        </IconButton>
+                        <Typography variant="body1" style={styles.quantityText}>
+                            {quantity}
+                        </Typography>
+                        <IconButton color="primary" onClick={onIncrease}>
+                            <AddIcon />
+                        </IconButton>
+                    </div>
+                    : null}
             </CardContent>
 
             <CardActions disableSpacing>

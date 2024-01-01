@@ -1,17 +1,15 @@
 import React from "react";
 import NavBar from "../Components/Navbar";
-import { Button, Typography, Grid } from "@mui/material";
+import { Button, Typography, Divider } from "@mui/material";
 import gameImage from "../imgs/placeholde.avif";
 import { useNavigate } from "react-router-dom";
-import FacebookIcon from '@mui/icons-material/Facebook';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import YouTubeIcon from '@mui/icons-material/YouTube';
 import Featured from "../Components/Featured";
+import Footer from "../Components/Footer";
+
 
 export default function Home() {
     const nav = useNavigate()
     const containerStyle = {
-        width: "100%",
         height: "300px",
         background: `url(${gameImage})`, // Set the image as background
         backgroundSize: "cover",
@@ -23,7 +21,7 @@ export default function Home() {
     };
 
     const textStyle = {
-        color: "white",
+        color: "black",
         fontSize: "24px",
         textAlign: "center",
         zIndex: 1,
@@ -40,19 +38,15 @@ export default function Home() {
                 <div style={textStyle}>
                     <Typography variant="h4" style={{
                         margin: '10px'
-                    }}>Slogan here</Typography>
-                    <Button variant="contained" onClick={() => { nav('/products') }}>Shop All</Button>
+                    }}>Lush Accessories: Style Elevated.</Typography>
+                    <Button variant="contained" onClick={() => { nav('/products') }} style={{backgroundColor: 'black'}}>Shop All</Button>
                 </div>
             </div>
             <Featured />
-            <Grid container style={{
-                margin: '10px'
-            }}>
-                <Grid item xs={9}></Grid>
-                <Grid item xs={1}><FacebookIcon style={{color: 'white'}}/></Grid>
-                <Grid item xs={1}><InstagramIcon style={{color: 'white'}}/></Grid>
-                <Grid item xs={1}><YouTubeIcon style={{color: 'white'}}/></Grid>
-            </Grid>
+            <Divider style={{
+                backgroundColor: 'white'
+            }}/>
+            <Footer dark={true} />
         </div>
     )
 }
