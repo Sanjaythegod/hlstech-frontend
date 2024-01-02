@@ -9,6 +9,7 @@ import ProductDetails from "./Containers/ProductDetails";
 import SuccessPage from "./Containers/Success";
 import { ShoppingCartProvider } from "./shoppingCartContext";
 import Cart from "./Containers/Cart";
+import CancelPage from "./Containers/Cancel";
 import Admin from "./Containers/Admin";
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
         <Route path='/signup' element={<Signup />} />
         <Route path='/productdetails/:productId' element={<ProductDetails />} />
         <Route path='/success' element={<SuccessPage />} />
+        <Route path='/cancel' element={<CancelPage />} />
         <Route path='/cart' element={<Cart />} />
         <Route path='/admin' element={<Admin />} />
 

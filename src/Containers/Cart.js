@@ -76,7 +76,7 @@ export default function Cart() {
             setUrlLoading(false);
         }).catch(e => {
             nav('/login');
-        }); 
+        });
         //creating orders in db
 
         cartState.map((item) => {
@@ -153,7 +153,9 @@ export default function Cart() {
                                     }
                                 </div>
 
-                                <Button variant="contained" onClick={handleCheckOut} style={{ backgroundColor: 'black', width: '100%' }}>
+                                <Button variant="contained" onClick={handleCheckOut} disabled={
+                                    Object.values(shippingInfo).some(value => value === "")
+                                } style={{ backgroundColor: Object.values(shippingInfo).some(value => value === "") ? 'rgb(219 218 218)' : 'black', width: '100%' }}>
                                     {urlLoading ? "Redirecting..." : "Checkout"}
                                 </Button>
                                 <Button variant="outlined" onClick={() => {

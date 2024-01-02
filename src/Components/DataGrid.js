@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { DataGrid } from '@mui/x-data-grid';
 
 export default function Orders({ data }) {
+
     const columns = [
         { field: 'id', headerName: 'ID', width: 150 },
-        { field: 'user_id', headerName: 'User ID', width: 150 },
-        { field: 'product_id', headerName: 'Product ID', width: 150 },
+        { field: 'user_name', headerName: 'Ordered By', width: 150 },
+        { field: 'user_email', headerName: 'Email', width: 150 },
+        { field: 'product_name', headerName: 'Product Name', width: 150 },
         { field: 'quantity', headerName: 'Quantity', width: 150 },
+        { field: 'total_price', headerName: 'Total Price', width: 150 },
         { field: 'line_1', headerName: 'Line 1', width: 150 },
         { field: 'line_2', headerName: 'Line 2', width: 150 },
         { field: 'city', headerName: 'City', width: 150 },
@@ -15,12 +18,13 @@ export default function Orders({ data }) {
         { field: 'is_fulfilled', headerName: 'Fulfilled', width: 150 },
     ];
 
-
     const rows = data.map(order => ({
         id: order.id,
-        user_id: order.user_id,
-        product_id: order.product_id,
+        user_name: order.user_name,
+        user_email: order.user_email,
+        product_name: order.product_name,
         quantity: order.quantity,
+        total_price: parseFloat(order.product_price) * parseInt(order.quantity),
         line_1: order.line_1,
         line_2: order.line_2,
         city: order.city,
